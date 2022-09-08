@@ -107,12 +107,23 @@ class UserInput {
   static String receiveStringFromUser({
     String message = "provide a string",
     String errorMessage = "provide a string",
+    List<String>? filter,
   }) {
     String? string;
+
+    if (filter != null) {
+      filter = filter.map((e) => e.toUpperCase()).toList();
+    }
 
     while (string == null) {
       print("\n$message");
       string = stdin.readLineSync();
+
+      if (filter != null) {
+        if (!filter.contains(string)) {
+          string = null;
+        }
+      }
 
       if (string == null) {
         print(errorMessage);

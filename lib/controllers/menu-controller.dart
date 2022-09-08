@@ -22,16 +22,14 @@ class MenuController {
       if (option != 0) {
         switch (option) {
           case 1:
-            // citiesController.createCity();
+            companyController.createCompany();
             break;
           case 2:
-            // citiesController.removeCity();
+            companyController.getCompanyByCNPJ();
             break;
           case 3:
-            // citiesController.editCity();
             break;
           case 4:
-            // citiesController.showCity();
             break;
         }
 

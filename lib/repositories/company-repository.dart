@@ -49,11 +49,22 @@ class CompanyRepository {
   }
 
   Company? findById(String id) {
+    final exists = _companies.any((element) => element.id == id);
+
+    if (!exists) return null;
+
     final company = _companies.firstWhere((element) => element.id == id);
 
-    print(company);
+    return company;
+  }
 
-    return null;
+  Company? findByCNPJ(String cnpj) {
+    final exists = _companies.any((element) => element.cnpj == cnpj);
+
+    if (!exists) return null;
+    final company = _companies.firstWhere((element) => element.cnpj == cnpj);
+
+    return company;
   }
 
   void deleteById(String id) {

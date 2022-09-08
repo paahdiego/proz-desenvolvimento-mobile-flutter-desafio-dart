@@ -45,9 +45,7 @@ class PhysicalPersonRepository {
     final physicalPerson =
         _physicalPeople.firstWhere((element) => element.id == id);
 
-    print(physicalPerson);
-
-    return null;
+    return physicalPerson;
   }
 
   void deleteById(String id) {

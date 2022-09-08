@@ -1,14 +1,13 @@
+import 'package:desafio_dart/models/address.dart';
 import 'package:desafio_dart/repositories/address-repository.dart';
 import 'package:desafio_dart/utils/user-input-getters.dart';
 
 class AddressController {
-  final AddressRepository addressRepository;
+  final addressRepository = AddressRepository.getInstance();
 
-  AddressController({
-    required this.addressRepository,
-  });
+  AddressController();
 
-  createAddress() {
+  Address create() {
     final street = UserInput.receiveStringFromUser(
       errorMessage: "digite um logradouro válido",
       message: "digite o logradouro: ",
@@ -49,5 +48,54 @@ class AddressController {
     );
 
     return address;
+  }
+
+  Address getOneOrCreate() {
+    Address? selectedAddress;
+
+    int option = UserInput.receiveIntegerFromUser(
+      start: 1,
+      end: 2,
+      message:
+          "Deseja cadastrar novo endereço ou buscar um existente? \n\n1. Cadastrar novo\n2. Buscar existente",
+      errorMessage: "Digita uma opção válida",
+    );
+
+    print("\n\n");
+
+    while (selectedAddress == null) {
+      switch (option) {
+        case 1:
+          selectedAddress = create();
+
+          break;
+        case 2:
+          final addresses = addressRepository.getAll();
+
+          for (final address in addresses) {
+            final index = addresses.indexOf(address);
+            print("${index + 1}) ${address.formatted()}");
+          }
+
+          final addressIndex = UserInput.receiveIntegerFromUser(
+            message:
+                "digite o indice do endereço que deseja selecionar, se deseja criar um novo digite 0: ",
+            start: 0,
+            end: addresses.length,
+            errorMessage: "digite uma opção válida",
+          );
+
+          if (addressIndex == 0) {
+            option = 1;
+          } else {
+            selectedAddress = addressRepository.findById(
+              addresses[addressIndex - 1].id,
+            );
+          }
+
+          break;
+      }
+    }
+    return selectedAddress;
   }
 }

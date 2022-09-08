@@ -1,40 +1,60 @@
+import 'package:desafio_dart/controllers/address-controller.dart';
+import 'package:desafio_dart/controllers/person-controller.dart';
+
+import 'package:desafio_dart/models/company.dart';
+
 import 'package:desafio_dart/repositories/company-repository.dart';
 import 'package:desafio_dart/utils/user-input-getters.dart';
 
 class CompanyController {
   final companyRepository = CompanyRepository.getInstance();
 
-// Cadastrar uma nova empresa;
-  void createCompany() {
-    final option = UserInput.receiveIntegerFromUser(
-      start: 1,
-      end: 2,
-      message:
-          "Deseja cadastrar novo endereço ou buscar um existente? \n\n 1. Cadastrar novo\n2. Buscar existente",
-      errorMessage: "Digita uma opção válida",
+  Company createCompany() {
+    final corporateName = UserInput.receiveStringFromUser(
+      message: "digite a razão social: ",
+      errorMessage: "digite uma razão social válida",
+    );
+    final cnpj = UserInput.receiveStringFromUser(
+      message: "digite o cnpj: ",
+      errorMessage: "digite um cnpj válido",
+    );
+    final phone = UserInput.receiveStringFromUser(
+      message: "digite o telefone: ",
+      errorMessage: "digite um telefone válido",
+    );
+    final fantasyName = UserInput.receiveStringFromUser(
+      message: "digite o nome fantasia: ",
+      errorMessage: "digite um nome fantasia válido",
     );
 
-    switch (option) {
-      case 1:
+    final addressController = AddressController();
 
-        // final addressController = AddressController(
+    final selectedAddress = addressController.getOneOrCreate();
 
-        // );
-        // final address =
+    final personController = PersonController();
 
-        break;
-      case 2:
-        break;
-    }
+    final selectedPartner = personController.getOneOrCreate();
 
-    // final company = companyRepository.create(
-    //   address: Address,
-    //   cnpj: '',
-    //   corporateName: '',
-    //   fantasyName: '',
-    //   partner: null,
-    //   phone: '',
-    // );
+    final createdCompany = companyRepository.create(
+      fantasyName: fantasyName,
+      corporateName: corporateName,
+      cnpj: cnpj,
+      phone: phone,
+      address: selectedAddress,
+      partner: selectedPartner,
+    );
+
+    return createdCompany;
+  }
+
+  void getCompanyByCNPJ() {
+    final searchCnpj = UserInput.receiveStringFromUser(
+      message: "informe o cnpj",
+    );
+
+    final company = companyRepository.findByCNPJ(searchCnpj);
+
+    print(company);
   }
 
 // Buscar Empresa cadastrada por CNPJ;

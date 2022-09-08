@@ -23,6 +23,10 @@ class Address extends ObjectId {
     required super.createdAt,
   });
 
+  String formatted() {
+    return "$street, $number - $neighboorhood - $city, $state - $zipCode - $complement";
+  }
+
   @override
   String toString() {
     return 'Address(id: $id, street: $street, number: $number, neighboorhood: $neighboorhood, city: $city, complement: $complement, zipCode: $zipCode, state: $state, createdAt: $createdAt)';

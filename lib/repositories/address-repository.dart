@@ -47,11 +47,13 @@ class AddressRepository {
   }
 
   Address? findById(String id) {
+    final exists = _addresses.any((element) => element.id == id);
+
+    if (!exists) return null;
+
     final address = _addresses.firstWhere((element) => element.id == id);
 
-    print(address);
-
-    return null;
+    return address;
   }
 
   void deleteById(String id) {

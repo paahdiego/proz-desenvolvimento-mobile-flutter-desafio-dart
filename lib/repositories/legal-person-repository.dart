@@ -45,11 +45,13 @@ class LegalPersonRepository {
   }
 
   LegalPerson? findById(String id) {
+    final exists = _legalPeople.any((element) => element.id == id);
+
+    if (!exists) return null;
+
     final legalPerson = _legalPeople.firstWhere((element) => element.id == id);
 
-    print(legalPerson);
-
-    return null;
+    return legalPerson;
   }
 
   void deleteById(String id) {
