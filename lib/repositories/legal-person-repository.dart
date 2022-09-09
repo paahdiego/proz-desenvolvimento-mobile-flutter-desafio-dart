@@ -54,6 +54,18 @@ class LegalPersonRepository {
     return legalPerson;
   }
 
+  LegalPerson? findByCNPJ(String cnpj) {
+    final exists = _legalPeople.any((element) => element.cnpj == cnpj);
+
+    if (!exists) return null;
+
+    final legalPerson = _legalPeople.firstWhere(
+      (element) => element.cnpj == cnpj,
+    );
+
+    return legalPerson;
+  }
+
   void deleteById(String id) {
     _legalPeople.removeWhere((element) => element.id == id);
   }

@@ -42,8 +42,24 @@ class PhysicalPersonRepository {
   }
 
   PhysicalPerson? findById(String id) {
+    final exists = _physicalPeople.any((element) => element.id == id);
+
+    if (!exists) return null;
+
+    final physicalPerson = _physicalPeople.firstWhere(
+      (element) => element.id == id,
+    );
+
+    return physicalPerson;
+  }
+
+  PhysicalPerson? findByCPF(String cpf) {
+    final exists = _physicalPeople.any((element) => element.cpf == cpf);
+
+    if (!exists) return null;
+
     final physicalPerson =
-        _physicalPeople.firstWhere((element) => element.id == id);
+        _physicalPeople.firstWhere((element) => element.cpf == cpf);
 
     return physicalPerson;
   }

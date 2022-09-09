@@ -12,6 +12,15 @@ abstract class Person extends ObjectId {
     required super.createdAt,
   });
 
+  String personType() {
+    switch (type) {
+      case PersonType.physical:
+        return "Pessoa Física";
+      case PersonType.legal:
+        return "Pessoa Juridica";
+    }
+  }
+
   @override
   String toString() => 'Person(address: $address)';
 }

@@ -28,8 +28,14 @@ class MenuController {
             companyController.getCompanyByCNPJ();
             break;
           case 3:
+            companyController.getCompanyByPartnerDocument();
             break;
+
           case 4:
+            companyController.listCompaniesOrdenated();
+            break;
+          case 5:
+            companyController.deleteCompanyById();
             break;
         }
 

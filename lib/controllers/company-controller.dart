@@ -2,8 +2,10 @@ import 'package:desafio_dart/controllers/address-controller.dart';
 import 'package:desafio_dart/controllers/person-controller.dart';
 
 import 'package:desafio_dart/models/company.dart';
+import 'package:desafio_dart/models/person.dart';
 
 import 'package:desafio_dart/repositories/company-repository.dart';
+
 import 'package:desafio_dart/utils/user-input-getters.dart';
 
 class CompanyController {
@@ -48,19 +50,116 @@ class CompanyController {
   }
 
   void getCompanyByCNPJ() {
-    final searchCnpj = UserInput.receiveStringFromUser(
-      message: "informe o cnpj",
-    );
+    Company? company;
 
-    final company = companyRepository.findByCNPJ(searchCnpj);
+    do {
+      final searchCnpj = UserInput.receiveStringFromUser(
+        message: "informe o CNPJ",
+        errorMessage: "Informe um CNPJ válido",
+      );
 
-    print(company);
+      company = companyRepository.findByCNPJ(searchCnpj);
+
+      if (company == null) {
+        print("\nEmpresa não encontrada...CPNJ: $searchCnpj\n");
+
+        final option = UserInput.receiveIntegerFromUser(
+          message: "Deseja tentar novamente?\n\n1. SIM\n2. NÃO\n",
+          start: 1,
+          end: 2,
+          errorMessage: "digite uma opção válida",
+        );
+
+        if (option == 2) break;
+      }
+    } while (company == null);
+
+    if (company != null) {
+      print(company.toStringFormatted());
+    }
   }
 
-// Buscar Empresa cadastrada por CNPJ;
-// Buscar Empresa por CPF/CNPJ do Sócio;
-// Listar Empresas cadastradas em ordem alfabética (baseado na Razão Social);
-// Excluir uma empresa (por ID);
-// Sair.
+  void getCompanyByPartnerDocument() {
+    Company? company;
 
+    final option = UserInput.receiveIntegerFromUser(
+      message: "Deseja buscar por CPF ou CNPJ?\n\n1. CPF\n2. CNPJ\n",
+      start: 1,
+      end: 2,
+      errorMessage: "digite uma opção válida",
+    );
+
+    do {
+      final searchDocument = UserInput.receiveStringFromUser(
+        message: "Digite o ${option == 1 ? "CPF" : "CNPJ"}: ",
+        errorMessage: "digite um ${option == 1 ? "CPF" : "CNPJ"} válido",
+      );
+
+      if (option == 1) {
+        company = companyRepository.findByPartnerDocument(
+          document: searchDocument,
+          type: PersonType.physical,
+        );
+      } else {
+        company = companyRepository.findByPartnerDocument(
+          document: searchDocument,
+          type: PersonType.legal,
+        );
+      }
+
+      if (company == null) {
+        print(
+            "\nEmpresa não encontrada...documento do sócio: $searchDocument\n");
+
+        final option = UserInput.receiveIntegerFromUser(
+          message: "Deseja tentar novamente?\n\n1. SIM\n2. NÃO\n",
+          start: 1,
+          end: 2,
+          errorMessage: "digite uma opção válida",
+        );
+
+        if (option == 2) break;
+      }
+    } while (company == null);
+  }
+
+  void listCompaniesOrdenated() {
+    final companies = companyRepository.getAll();
+
+    companies.sort((a, b) => a.corporateName.compareTo(b.corporateName));
+
+    for (final company in companies) {
+      print(company.toStringFormatted());
+    }
+  }
+
+  void deleteCompanyById() {
+    do {
+      listCompaniesOrdenated();
+
+      String id = UserInput.receiveStringFromUser(
+        message: "\ndigite o id que deseja deletar",
+        errorMessage: "digite um id válido",
+      );
+
+      final company = companyRepository.findById(id);
+
+      if (company == null) {
+        print("\nEmpresa não encontrada...id: $id\n");
+
+        final option = UserInput.receiveIntegerFromUser(
+          message: "Deseja tentar novamente?\n\n1. SIM\n2. NÃO\n",
+          start: 1,
+          end: 2,
+          errorMessage: "digite uma opção válida",
+        );
+        if (option == 2) break;
+      }
+      if (company != null) {
+        companyRepository.deleteById(id);
+        break;
+      }
+    } while (true);
+    listCompaniesOrdenated();
+  }
 }

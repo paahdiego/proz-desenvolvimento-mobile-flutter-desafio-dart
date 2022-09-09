@@ -1,6 +1,8 @@
 import 'package:desafio_dart/models/address.dart';
 import 'package:desafio_dart/models/company.dart';
 import 'package:desafio_dart/models/person.dart';
+import 'package:desafio_dart/repositories/legal-person-repository.dart';
+import 'package:desafio_dart/repositories/physical-person-repository.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/company.dart';
@@ -62,7 +64,46 @@ class CompanyRepository {
     final exists = _companies.any((element) => element.cnpj == cnpj);
 
     if (!exists) return null;
+
     final company = _companies.firstWhere((element) => element.cnpj == cnpj);
+
+    return company;
+  }
+
+  Company? findByPartnerDocument({
+    required String document,
+    required PersonType type,
+  }) {
+    String? companyId;
+    for (final company in _companies) {
+      if (company.partner.type == type) {
+        switch (type) {
+          case PersonType.physical:
+            final physicalPersonRepository =
+                PhysicalPersonRepository.getInstance();
+            final partnerData = physicalPersonRepository.findById(
+              company.partner.id,
+            );
+            if (partnerData != null && partnerData.cpf == document) {
+              companyId = company.id;
+            }
+            break;
+          case PersonType.legal:
+            final legalPersonRepository = LegalPersonRepository.getInstance();
+            final partnerData = legalPersonRepository.findById(
+              company.partner.id,
+            );
+            if (partnerData != null && partnerData.cnpj == document) {
+              companyId = company.id;
+            }
+            break;
+        }
+      }
+    }
+
+    if (companyId == null) return null;
+
+    final company = _companies.firstWhere((element) => element.id == companyId);
 
     return company;
   }
