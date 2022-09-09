@@ -1,5 +1,6 @@
 import 'package:desafio_dart/models/address.dart';
 import 'package:desafio_dart/repositories/address-repository.dart';
+import 'package:desafio_dart/utils/string-validators.dart';
 import 'package:desafio_dart/utils/user-input-getters.dart';
 
 class AddressController {
@@ -8,6 +9,8 @@ class AddressController {
   AddressController();
 
   Address create() {
+    final stringValidators = StringValidators();
+
     final street = UserInput.receiveStringFromUser(
       errorMessage: "digite um logradouro válido",
       message: "digite o logradouro: ",
@@ -31,6 +34,9 @@ class AddressController {
     final zipCode = UserInput.receiveStringFromUser(
       errorMessage: "digite um cep válido",
       message: "digite o cep: ",
+      validators: [
+        stringValidators.isCepValid,
+      ],
     );
     final state = UserInput.receiveStringFromUser(
       errorMessage: "digite um estado válido",

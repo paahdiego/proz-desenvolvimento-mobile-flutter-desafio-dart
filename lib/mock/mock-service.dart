@@ -16,6 +16,8 @@ class MockService {
 
   final physicalPersonRepository = PhysicalPersonRepository.getInstance();
 
+  final mockedLists = MockedLists();
+
   MockService() {
     _initialize();
   }
@@ -29,7 +31,7 @@ class MockService {
   }
 
   void _createAddresses() {
-    for (final address in MockedLists.mockedAddresses) {
+    for (final address in mockedLists.mockedAddresses) {
       addressRepository.create(
         street: address["street"],
         number: address["number"],
@@ -43,7 +45,7 @@ class MockService {
   }
 
   void _createPhysicalPeople() {
-    for (final physicalPerson in MockedLists.mockedPhysicalPeople) {
+    for (final physicalPerson in mockedLists.mockedPhysicalPeople) {
       final address = addressRepository.create(
         street: physicalPerson["street"],
         number: physicalPerson["number"],
@@ -63,7 +65,7 @@ class MockService {
   }
 
   void _createLegalPeople() {
-    for (final physicalPerson in MockedLists.mockedLegalPeople) {
+    for (final physicalPerson in mockedLists.mockedLegalPeople) {
       final address = addressRepository.create(
         street: physicalPerson["street"],
         number: physicalPerson["number"],
@@ -93,7 +95,7 @@ class MockService {
 
     bool flipper = false;
 
-    for (final company in MockedLists.mockedCompanies) {
+    for (final company in mockedLists.mockedCompanies) {
       final indexAddress = random.nextInt(addresses.length);
       final indexPhysicalPerson = random.nextInt(physicalPeople.length);
       final indexLegalPerson = random.nextInt(legalPeople.length);

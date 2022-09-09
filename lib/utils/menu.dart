@@ -15,7 +15,7 @@ Cadastro de Empresas
 4. Listar Empresas cadastradas em ordem alfabética (baseado na Razão Social);
 5. Excluir uma empresa (por ID);
 
-0. Sair.
+6. Sair.
 """,
     );
   }

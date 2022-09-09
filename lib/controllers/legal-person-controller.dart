@@ -2,21 +2,28 @@ import 'package:desafio_dart/controllers/address-controller.dart';
 import 'package:desafio_dart/models/legal-person.dart';
 
 import 'package:desafio_dart/repositories/legal-person-repository.dart';
+import 'package:desafio_dart/utils/string-validators.dart';
 
 import 'package:desafio_dart/utils/user-input-getters.dart';
 
 class LegalPersonController {
   final legalPersonRepository = LegalPersonRepository.getInstance();
 
+  final stringValidator = StringValidators();
+
   LegalPerson create() {
     final cnpj = UserInput.receiveStringFromUser(
       message: "digite o cnpj: ",
+      errorMessage: "digite um cnpj válido",
+      validators: [stringValidator.isCNPJValid],
     );
     final fantasyName = UserInput.receiveStringFromUser(
       message: "digite o nome fantasia: ",
+      errorMessage: "digite um nome fantasia válido",
     );
     final corporateName = UserInput.receiveStringFromUser(
       message: "digite a razão social: ",
+      errorMessage: "digite uma razão social válida",
     );
     final phone = UserInput.receiveStringFromUser(
       message: "digite telefone: ",

@@ -1,5 +1,5 @@
 class MockedLists {
-  static const List<Map> mockedCompanies = [
+  final List<Map> mockedCompanies = [
     {
       "fantasyName": "Julia e Vicente Telas ME",
       "corporateName": "Julia e Vicente Telas",
@@ -41,7 +41,7 @@ class MockedLists {
       "complement": "",
     },
   ];
-  static const List<Map> mockedAddresses = [
+  final List<Map> mockedAddresses = [
     {
       "neighboorhood": 'Vila Lacerda',
       "zipCode": '13214-060',
@@ -70,7 +70,7 @@ class MockedLists {
       "city": 'Atibaia',
     }
   ];
-  static const List<Map> mockedPhysicalPeople = [
+  final List<Map> mockedPhysicalPeople = [
     {
       "name": "Geraldo Gustavo Samuel Drumond",
       "cpf": "435.298.711-50",
@@ -106,7 +106,7 @@ class MockedLists {
     },
   ];
 
-  static const List<Map> mockedLegalPeople = [
+  final List<Map> mockedLegalPeople = [
     {
       "fantasyName": "Nicolas e Iago Joalheria  ME",
       "corporateName": "Nicolas e Iago Joalheria ",

@@ -14,8 +14,8 @@ class MenuController {
 
       option = UserInput.receiveIntegerFromUser(
         message: "choose an option:",
-        start: 0,
-        end: 5,
+        start: 1,
+        end: 6,
         errorMessage: "provide an valid option",
       );
 
@@ -41,6 +41,6 @@ class MenuController {
 
         AppUtils.pauseApp();
       }
-    } while (option != 0);
+    } while (option != 6);
   }
 }

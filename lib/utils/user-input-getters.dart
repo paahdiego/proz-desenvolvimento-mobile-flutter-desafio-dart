@@ -108,6 +108,8 @@ class UserInput {
     String message = "provide a string",
     String errorMessage = "provide a string",
     List<String>? filter,
+    int? length,
+    List<bool Function(String value)>? validators,
   }) {
     String? string;
 
@@ -125,8 +127,21 @@ class UserInput {
         }
       }
 
+      // string = string?.replaceAll(RegExp(r"\D"), "");
+
       if (string == null) {
         print(errorMessage);
+      }
+
+      if (validators != null && string != null) {
+        for (final validator in validators) {
+          final result = validator(string!);
+          if (!result) {
+            print(errorMessage);
+            string = null;
+            break;
+          }
+        }
       }
     }
     return string;
