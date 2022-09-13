@@ -1,7 +1,7 @@
 import 'package:desafio_dart/models/address.dart';
-import 'package:desafio_dart/repositories/address-repository.dart';
-import 'package:desafio_dart/utils/string-validators.dart';
-import 'package:desafio_dart/utils/user-input-getters.dart';
+import 'package:desafio_dart/repositories/address_repository.dart';
+import 'package:desafio_dart/utils/string_validators.dart';
+import 'package:desafio_dart/utils/user_input_getters.dart';
 
 class AddressController {
   final addressRepository = AddressRepository.getInstance();

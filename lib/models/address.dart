@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:desafio_dart/models/object-id.dart';
+import 'package:desafio_dart/models/object_id.dart';
 
 class Address extends ObjectId {
   final String street;

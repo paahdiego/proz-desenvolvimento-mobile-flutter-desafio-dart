@@ -1,10 +1,10 @@
 import 'package:desafio_dart/models/address.dart';
 
-import 'package:desafio_dart/models/object-id.dart';
+import 'package:desafio_dart/models/object_id.dart';
 import 'package:desafio_dart/models/person.dart';
 
-import 'package:desafio_dart/repositories/legal-person-repository.dart';
-import 'package:desafio_dart/repositories/physical-person-repository.dart';
+import 'package:desafio_dart/repositories/legal_person_repository.dart';
+import 'package:desafio_dart/repositories/physical_person_repository.dart';
 
 class Company extends ObjectId {
   final String fantasyName;

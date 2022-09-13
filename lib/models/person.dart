@@ -1,5 +1,5 @@
 import 'package:desafio_dart/models/address.dart';
-import 'package:desafio_dart/models/object-id.dart';
+import 'package:desafio_dart/models/object_id.dart';
 
 abstract class Person extends ObjectId {
   final Address address;

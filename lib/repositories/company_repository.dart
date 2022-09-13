@@ -1,8 +1,9 @@
 import 'package:desafio_dart/models/address.dart';
 import 'package:desafio_dart/models/company.dart';
 import 'package:desafio_dart/models/person.dart';
-import 'package:desafio_dart/repositories/legal-person-repository.dart';
-import 'package:desafio_dart/repositories/physical-person-repository.dart';
+import 'package:desafio_dart/repositories/legal_person_repository.dart';
+import 'package:desafio_dart/repositories/physical_person_repository.dart';
+import 'package:desafio_dart/utils/string_formatter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/company.dart';
@@ -30,12 +31,14 @@ class CompanyRepository {
     required Address address,
     required Person partner,
   }) {
+    final formatter = StringFormatter();
+
     final company = Company(
       createdAt: DateTime.now(),
       id: uuid.v1(),
       fantasyName: fantasyName,
       corporateName: corporateName,
-      cnpj: cnpj,
+      cnpj: formatter.formatCNPJ(cnpj),
       address: address,
       phone: phone,
       partner: partner,
@@ -61,6 +64,10 @@ class CompanyRepository {
   }
 
   Company? findByCNPJ(String cnpj) {
+    final formatter = StringFormatter();
+
+    cnpj = formatter.formatCNPJ(cnpj);
+
     final exists = _companies.any((element) => element.cnpj == cnpj);
 
     if (!exists) return null;
@@ -75,6 +82,7 @@ class CompanyRepository {
     required PersonType type,
   }) {
     String? companyId;
+    final formatter = StringFormatter();
     for (final company in _companies) {
       if (company.partner.type == type) {
         switch (type) {
@@ -84,7 +92,8 @@ class CompanyRepository {
             final partnerData = physicalPersonRepository.findById(
               company.partner.id,
             );
-            if (partnerData != null && partnerData.cpf == document) {
+            if (partnerData != null &&
+                partnerData.cpf == formatter.formatCPF(document)) {
               companyId = company.id;
             }
             break;
@@ -93,7 +102,8 @@ class CompanyRepository {
             final partnerData = legalPersonRepository.findById(
               company.partner.id,
             );
-            if (partnerData != null && partnerData.cnpj == document) {
+            if (partnerData != null &&
+                partnerData.cnpj == formatter.formatCNPJ(document)) {
               companyId = company.id;
             }
             break;

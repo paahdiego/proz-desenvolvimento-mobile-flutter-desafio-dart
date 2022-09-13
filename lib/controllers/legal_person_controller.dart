@@ -1,15 +1,17 @@
-import 'package:desafio_dart/controllers/address-controller.dart';
-import 'package:desafio_dart/models/legal-person.dart';
+import 'package:desafio_dart/controllers/address_controller.dart';
+import 'package:desafio_dart/models/legal_person.dart';
 
-import 'package:desafio_dart/repositories/legal-person-repository.dart';
-import 'package:desafio_dart/utils/string-validators.dart';
+import 'package:desafio_dart/repositories/legal_person_repository.dart';
+import 'package:desafio_dart/utils/string_formatter.dart';
+import 'package:desafio_dart/utils/string_validators.dart';
 
-import 'package:desafio_dart/utils/user-input-getters.dart';
+import 'package:desafio_dart/utils/user_input_getters.dart';
 
 class LegalPersonController {
   final legalPersonRepository = LegalPersonRepository.getInstance();
 
   final stringValidator = StringValidators();
+  final formatter = StringFormatter();
 
   LegalPerson create() {
     final cnpj = UserInput.receiveStringFromUser(
@@ -34,7 +36,7 @@ class LegalPersonController {
     final selectedAddress = addressController.getOneOrCreate();
 
     final legalPerson = legalPersonRepository.create(
-      cnpj: cnpj,
+      cnpj: formatter.formatCNPJ(cnpj),
       corporateName: fantasyName,
       fantasyName: corporateName,
       address: selectedAddress,

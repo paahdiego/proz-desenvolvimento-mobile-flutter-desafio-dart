@@ -1,7 +1,7 @@
-import 'package:desafio_dart/controllers/legal-person-controller.dart';
-import 'package:desafio_dart/controllers/physical-person-controller.dart';
+import 'package:desafio_dart/controllers/legal_person_controller.dart';
+import 'package:desafio_dart/controllers/physical_person_controller.dart';
 import 'package:desafio_dart/models/person.dart';
-import 'package:desafio_dart/utils/user-input-getters.dart';
+import 'package:desafio_dart/utils/user_input_getters.dart';
 
 class PersonController {
   final physicalPersonController = PhysicalPersonController();
@@ -16,7 +16,7 @@ class PersonController {
       end: 2,
       errorMessage: "Escolha um tipo válido",
       message:
-          "Escolha o tipo de pessoa: \n\n1. Pessoa Física\n2. Pessoa Juridica\n",
+          "Escolha o tipo de pessoa para sócio da empresa: \n\n1. Pessoa Física\n2. Pessoa Juridica\n",
     );
 
     if (personType == 1) {

@@ -1,7 +1,7 @@
-import 'package:desafio_dart/controllers/company-controller.dart';
-import 'package:desafio_dart/utils/app-utils.dart';
+import 'package:desafio_dart/controllers/company_controller.dart';
+import 'package:desafio_dart/utils/app_utils.dart';
 import 'package:desafio_dart/utils/menu.dart';
-import 'package:desafio_dart/utils/user-input-getters.dart';
+import 'package:desafio_dart/utils/user_input_getters.dart';
 
 class MenuController {
   final companyController = CompanyController();

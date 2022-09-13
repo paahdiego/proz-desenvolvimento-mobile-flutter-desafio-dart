@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:desafio_dart/utils/app-utils.dart';
+import 'package:desafio_dart/utils/app_utils.dart';
 
 class MenuUtils {
   static void showMenu() {

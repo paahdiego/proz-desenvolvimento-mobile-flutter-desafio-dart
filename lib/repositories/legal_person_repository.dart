@@ -1,6 +1,7 @@
 import 'package:desafio_dart/models/address.dart';
-import 'package:desafio_dart/models/legal-person.dart';
+import 'package:desafio_dart/models/legal_person.dart';
 import 'package:desafio_dart/models/person.dart';
+import 'package:desafio_dart/utils/string_formatter.dart';
 import 'package:uuid/uuid.dart';
 
 class LegalPersonRepository {
@@ -25,12 +26,13 @@ class LegalPersonRepository {
     required Address address,
     required String phone,
   }) {
+    final formatter = StringFormatter();
     final legalPerson = LegalPerson(
       createdAt: DateTime.now(),
       id: uuid.v1(),
       fantasyName: fantasyName,
       corporateName: corporateName,
-      cnpj: cnpj,
+      cnpj: formatter.formatCNPJ(cnpj),
       address: address,
       type: PersonType.legal,
     );
@@ -55,6 +57,9 @@ class LegalPersonRepository {
   }
 
   LegalPerson? findByCNPJ(String cnpj) {
+    final formatter = StringFormatter();
+
+    cnpj = formatter.formatCNPJ(cnpj);
     final exists = _legalPeople.any((element) => element.cnpj == cnpj);
 
     if (!exists) return null;

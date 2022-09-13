@@ -1,17 +1,24 @@
-import 'package:desafio_dart/controllers/address-controller.dart';
-import 'package:desafio_dart/models/physical-person.dart';
-import 'package:desafio_dart/repositories/physical-person-repository.dart';
-import 'package:desafio_dart/utils/user-input-getters.dart';
+import 'package:desafio_dart/controllers/address_controller.dart';
+import 'package:desafio_dart/models/physical_person.dart';
+import 'package:desafio_dart/repositories/physical_person_repository.dart';
+import 'package:desafio_dart/utils/string_formatter.dart';
+import 'package:desafio_dart/utils/string_validators.dart';
+import 'package:desafio_dart/utils/user_input_getters.dart';
 
 class PhysicalPersonController {
   final physicalPersonRepository = PhysicalPersonRepository.getInstance();
 
   PhysicalPerson create() {
+    final stringValidator = StringValidators();
+    final formatter = StringFormatter();
     final name = UserInput.receiveStringFromUser(
-      message: "digite um name",
+      message: "digite um nome",
+      errorMessage: "digite um nome válido",
     );
     final cpf = UserInput.receiveStringFromUser(
       message: "digite um cpf",
+      errorMessage: "digite um cpf válido",
+      validators: [stringValidator.isCPFValid],
     );
 
     final addressController = AddressController();
@@ -20,7 +27,7 @@ class PhysicalPersonController {
 
     final physicalPerson = physicalPersonRepository.create(
       name: name,
-      cpf: cpf,
+      cpf: formatter.formatCPF(cpf),
       address: selectedAddress,
     );
 

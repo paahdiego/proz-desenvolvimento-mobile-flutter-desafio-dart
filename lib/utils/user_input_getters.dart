@@ -127,8 +127,6 @@ class UserInput {
         }
       }
 
-      // string = string?.replaceAll(RegExp(r"\D"), "");
-
       if (string == null) {
         print(errorMessage);
       }

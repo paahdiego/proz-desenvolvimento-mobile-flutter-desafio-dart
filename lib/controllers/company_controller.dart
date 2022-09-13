@@ -1,13 +1,13 @@
-import 'package:desafio_dart/controllers/address-controller.dart';
-import 'package:desafio_dart/controllers/person-controller.dart';
+import 'package:desafio_dart/controllers/address_controller.dart';
+import 'package:desafio_dart/controllers/person_controller.dart';
 
 import 'package:desafio_dart/models/company.dart';
 import 'package:desafio_dart/models/person.dart';
 
-import 'package:desafio_dart/repositories/company-repository.dart';
-import 'package:desafio_dart/utils/string-validators.dart';
+import 'package:desafio_dart/repositories/company_repository.dart';
+import 'package:desafio_dart/utils/string_validators.dart';
 
-import 'package:desafio_dart/utils/user-input-getters.dart';
+import 'package:desafio_dart/utils/user_input_getters.dart';
 
 class CompanyController {
   final companyRepository = CompanyRepository.getInstance();
@@ -132,6 +132,8 @@ class CompanyController {
         if (option == 2) break;
       }
     } while (company == null);
+
+    if (company != null) print(company.toStringFormatted());
   }
 
   void listCompaniesOrdenated() {
@@ -145,10 +147,12 @@ class CompanyController {
   }
 
   void deleteCompanyById() {
+    int option = 1;
+    String id = "";
     do {
       listCompaniesOrdenated();
 
-      String id = UserInput.receiveStringFromUser(
+      id = UserInput.receiveStringFromUser(
         message: "\ndigite o id que deseja deletar",
         errorMessage: "digite um id válido",
       );
@@ -158,7 +162,7 @@ class CompanyController {
       if (company == null) {
         print("\nEmpresa não encontrada...id: $id\n");
 
-        final option = UserInput.receiveIntegerFromUser(
+        option = UserInput.receiveIntegerFromUser(
           message: "Deseja tentar novamente?\n\n1. SIM\n2. NÃO\n",
           start: 1,
           end: 2,
@@ -171,6 +175,10 @@ class CompanyController {
         break;
       }
     } while (true);
-    listCompaniesOrdenated();
+
+    if (option != 2) {
+      print("\nEmpresa deletada: $id\n");
+      listCompaniesOrdenated();
+    }
   }
 }

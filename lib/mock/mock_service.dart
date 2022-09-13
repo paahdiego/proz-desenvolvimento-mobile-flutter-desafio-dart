@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:desafio_dart/mock/mocked-lists.dart';
+import 'package:desafio_dart/mock/mocked_lists.dart';
 
-import 'package:desafio_dart/repositories/address-repository.dart';
-import 'package:desafio_dart/repositories/company-repository.dart';
-import 'package:desafio_dart/repositories/legal-person-repository.dart';
-import 'package:desafio_dart/repositories/physical-person-repository.dart';
+import 'package:desafio_dart/repositories/address_repository.dart';
+import 'package:desafio_dart/repositories/company_repository.dart';
+import 'package:desafio_dart/repositories/legal_person_repository.dart';
+import 'package:desafio_dart/repositories/physical_person_repository.dart';
 
 class MockService {
   final addressRepository = AddressRepository.getInstance();

@@ -1,10 +1,9 @@
-import 'package:desafio_dart/controllers/company-controller.dart';
-import 'package:desafio_dart/controllers/menu-controller.dart';
-import 'package:desafio_dart/mock/mock-service.dart';
-import 'package:desafio_dart/repositories/address-repository.dart';
-import 'package:desafio_dart/repositories/company-repository.dart';
-import 'package:desafio_dart/repositories/legal-person-repository.dart';
-import 'package:desafio_dart/repositories/physical-person-repository.dart';
+import 'package:desafio_dart/controllers/menu_controller.dart';
+import 'package:desafio_dart/mock/mock_service.dart';
+import 'package:desafio_dart/repositories/address_repository.dart';
+import 'package:desafio_dart/repositories/company_repository.dart';
+import 'package:desafio_dart/repositories/legal_person_repository.dart';
+import 'package:desafio_dart/repositories/physical_person_repository.dart';
 
 class MyAppController {
   final bool activateMockedService;
